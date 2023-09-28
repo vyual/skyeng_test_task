@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="container mt-5">
+            <h2>Список продуктов</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название товара</th>
+                    <th>Категория</th>
+                    <th>Статус активности</th>
+                    <th>Цена</th>
+                    <th>Количество заказов за прошлый месяц от текущего</th>
+                    <th>Количество заказов за текущий месяц, начиная с 1 дня месяца</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{% if product.is_active %}Активен{% else %}Не активен{% endif %}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.orders_last_month }}</td>
+                        <td>{{ product.orders_current_month }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Вход</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+        </li>
+    {% endif %}
+{% endblock %}

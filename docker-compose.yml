@@ -1,0 +1,14 @@
+version: '3'
+services:
+  # Сервис для Django приложения
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    environment:
+      - DEBUG=True  # Установите в False для продакшн
+
+  # Сервис для базы данных PostgreSQL
