@@ -12,13 +12,11 @@ class Product(models.Model):
     def orders_last_month(self):
         last_month_start = date.today().replace(day=1) - timedelta(days=1)
         last_month_end = last_month_start.replace(day=1)
-        print(self.order_set.all().values())
         return self.order_set.filter(created_at__range=[last_month_start, last_month_end]).count()
 
     def orders_current_month(self):
         today = date.today()
         current_month_start = today.replace(day=1)
-        print(self.order_set.all().values())
         return self.order_set.filter(created_at__gte=current_month_start).count()
 
     def __str__(self):
